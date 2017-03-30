@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Reversi</string>
+
+    <string name="nb_piece_white">White pieces : </string>
+    <string name="nb_piece_black">Black pieces : </string>
+
+    <string name="turn">Turn : </string>
+
+
+</resources>
