@@ -60,6 +60,18 @@ public class CustomView extends View {
 
         pions = new ShapeDrawable[8][8];
 
+        for ( inc = 0; inc < 8; inc += 1)
+        {
+            for (i = 0; i < 8; i += 1)
+            {
+                pions[inc][i] = new ShapeDrawable(new OvalShape());
+
+                pions[inc][i].getPaint().setColor(Color.GRAY);
+            }
+        }
+
+
+
 
 
     }
@@ -74,6 +86,9 @@ public class CustomView extends View {
 
         height = height - 50;
 
+        width = (width - 80) / 8;
+        height = (height -250) / 8;
+
         if (width < height)
             height = width;
         else
@@ -81,9 +96,12 @@ public class CustomView extends View {
 
 
 
-        width = (width - 80) / 8;
-        height = (height -250) / 8;
 
+
+        draw_case(3, 3, 1);
+        draw_case(4, 4, 1);
+        draw_case(3, 4, 2);
+        draw_case(4, 3, 2);
     }
 
 
@@ -95,12 +113,12 @@ public class CustomView extends View {
         int y = 10;
 
 
-        Log.e("width" , ""+ width);
+
         for (inc = 0; inc < 8; inc += 1)
         {
             for (i = 0; i < 8; i += 1)
             {
-                Log.e("case", inc + " " + i + " w: " + (width + x) + " h: " + (height + y));
+
                 square[inc][i].setBounds(x, y, width +x, height + y);
                 square[inc][i].draw(convas);
                 x = width +x;
@@ -108,11 +126,22 @@ public class CustomView extends View {
             x = 10;
             y = height + y;
         }
-        draw_case(4, 5, 1);
+
+        for (inc = 0; inc < 8; inc += 1)
+        {
+            for (i = 0; i < 8; i += 1)
+            {
+                if (pions[inc][i].getPaint().getColor() == Color.BLACK || pions[inc][i].getPaint().getColor() == Color.BLUE )
+                    pions[inc][i].draw(convas);
+            }
+        }
     }
 
     public void draw_case(int x, int y, int color)
     {
+        Log.e("width" , ""+ width);
+        Log.e("width   x" , ""+ ((x +1) * width) + 10);
+        Log.e("width   y" , ""+ ((x +2) * width) + 10);
        pions[x][y] = null;
         pions[x][y] = new ShapeDrawable(new OvalShape());
         if (color == 1)
@@ -121,8 +150,10 @@ public class CustomView extends View {
             pions[x][y].getPaint().setColor(Color.BLUE);
         if (color == 1 || color == 2)
         {
-            pions[x][y].setBounds(new Rect());
+           pions[x][y].setBounds(new Rect(((x) * width) + 10, ((y) * width) + 10,((x +1) * width) + 10 , ((y +1) * width) + 10));
+           // pions[x][y].setBounds(new Rect(10, 10, 90, 90));
         }
+        invalidate();
     }
 
     public boolean onTouchEvent(MotionEvent event)
