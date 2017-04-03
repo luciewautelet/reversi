@@ -18,17 +18,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:text="@string/nb_piece_black"/>
+            android:id="@+id/black_tv"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="@string/nb_piece_white"/>
+            android:id="@+id/bluetv"/>
     </RelativeLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/turn" />
+        android:id="@+id/turntv"/>
     <com.example.wautel_l.reversi.CustomView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

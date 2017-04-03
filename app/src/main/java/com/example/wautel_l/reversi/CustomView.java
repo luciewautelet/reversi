@@ -180,6 +180,8 @@ public class CustomView extends View {
             }
         }
 
+
+
         return super.onTouchEvent(event);
     }
 }

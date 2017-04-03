@@ -7,10 +7,12 @@ package com.example.wautel_l.reversi;
 public class GameLogic {
     private int[][] board;
     private int current_player;
+    private MainActivity act;
 
-    public GameLogic()
+    public GameLogic(MainActivity activity)
     {
 
+        act = activity;
         board = new int[8][8];
         int inc;
         for (int i = 0; i < 8; i+=1)
