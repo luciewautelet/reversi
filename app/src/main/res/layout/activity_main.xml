@@ -31,7 +31,8 @@
         android:id="@+id/turntv"/>
     <com.example.wautel_l.reversi.CustomView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/cview"/>
 
 
 </LinearLayout>

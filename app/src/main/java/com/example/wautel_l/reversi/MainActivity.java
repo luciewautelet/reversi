@@ -2,6 +2,7 @@ package com.example.wautel_l.reversi;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -10,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView black_piece;
     private TextView blue_piece;
     private TextView turn;
-    private GameLogic gl;
+    private CustomView cview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +26,14 @@ public class MainActivity extends AppCompatActivity {
         set_text(2, 2);
         set_text(3, 1);
 
-        gl = new GameLogic(this);
+        cview =(CustomView) findViewById(R.id.cview);
+        cview.gl.setAct(this);
 
+    }
+
+    public void test()
+    {
+        Log.e("hello", "hello");
     }
 
     protected void set_text(int ind, int text)

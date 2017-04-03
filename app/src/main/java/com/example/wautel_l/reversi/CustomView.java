@@ -10,6 +10,7 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.graphics.drawable.shapes.RectShape;
 import android.graphics.drawable.shapes.RoundRectShape;
+import android.media.MediaActionSound;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -30,20 +31,26 @@ public class CustomView extends View {
     private int width;
     private int height;
     private int inc;
+    protected GameLogic gl;
+    private MainActivity context;
     private int i;
 
     public CustomView(Context context)
     {
         super(context);
+        context = (MainActivity) context;
         init();
     }
 
     public CustomView(Context c, AttributeSet as) {
         super(c, as);
+        context = (MainActivity) c;
         init();
     }
 
     private void init() {
+
+        gl = new GameLogic();
 
         square = new ShapeDrawable[8][8];
         for ( inc = 0; inc < 8; inc += 1)
@@ -179,9 +186,8 @@ public class CustomView extends View {
                 inc2 +=1;
             }
         }
-
-
-
+        
         return super.onTouchEvent(event);
     }
+
 }
