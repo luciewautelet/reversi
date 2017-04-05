@@ -34,6 +34,7 @@ public class CustomView extends View {
     protected GameLogic gl;
     private MainActivity context;
     private int i;
+    private int turn;
 
     public CustomView(Context context)
     {
@@ -50,7 +51,7 @@ public class CustomView extends View {
 
     private void init() {
 
-        gl = new GameLogic();
+        gl = new GameLogic(this);
 
         square = new ShapeDrawable[8][8];
         for ( inc = 0; inc < 8; inc += 1)
@@ -78,7 +79,7 @@ public class CustomView extends View {
         }
 
 
-
+    turn = 1;
 
 
     }
@@ -146,9 +147,6 @@ public class CustomView extends View {
 
     public void draw_case(int x, int y, int color)
     {
-        Log.e("width" , ""+ width);
-        Log.e("width   x" , ""+ ((x +1) * width) + 10);
-        Log.e("width   y" , ""+ ((x +2) * width) + 10);
        pions[x][y] = null;
         pions[x][y] = new ShapeDrawable(new OvalShape());
         if (color == 1)
@@ -158,7 +156,6 @@ public class CustomView extends View {
         if (color == 1 || color == 2)
         {
            pions[x][y].setBounds(new Rect(((x) * width) + 10, ((y) * width) + 10,((x +1) * width) + 10 , ((y +1) * width) + 10));
-           // pions[x][y].setBounds(new Rect(10, 10, 90, 90));
         }
         invalidate();
     }
@@ -186,7 +183,17 @@ public class CustomView extends View {
                 inc2 +=1;
             }
         }
-        
+
+        if (inc != 8 && inc2 != 8 )
+        {
+            if (gl.check_allowed(inc, inc2)) {
+                draw_case(inc, inc2, turn);
+                gl.set_all_case(inc, inc2);
+                turn = gl.setnextTurn();
+                context.set_text(3, turn);
+            }
+        }
+
         return super.onTouchEvent(event);
     }
 
