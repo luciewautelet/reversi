@@ -11,6 +11,7 @@
     android:orientation="vertical"
     tools:context="com.example.wautel_l.reversi.MainActivity">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -25,10 +26,22 @@
             android:layout_alignParentRight="true"
             android:id="@+id/bluetv"/>
     </RelativeLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/turntv"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/turntv"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reset"
+            android:layout_alignParentRight="true"
+            android:id="@+id/buttontv"/>
+    </RelativeLayout>
+
     <com.example.wautel_l.reversi.CustomView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

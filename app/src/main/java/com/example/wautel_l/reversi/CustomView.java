@@ -25,7 +25,6 @@ import static android.R.color.white;
 
 public class CustomView extends View {
 
-    private Paint grey, white, black;
     private ShapeDrawable[][] square;
     private ShapeDrawable[][] pions;
     private int width;
@@ -74,7 +73,7 @@ public class CustomView extends View {
             {
                 pions[inc][i] = new ShapeDrawable(new OvalShape());
 
-                pions[inc][i].getPaint().setColor(Color.GRAY);
+                pions[inc][i].getPaint().setColor(Color.TRANSPARENT);
             }
         }
 
@@ -110,6 +109,7 @@ public class CustomView extends View {
         draw_case(4, 4, 1);
         draw_case(3, 4, 2);
         draw_case(4, 3, 2);
+        gl.check_move();
     }
 
 
@@ -139,7 +139,7 @@ public class CustomView extends View {
         {
             for (i = 0; i < 8; i += 1)
             {
-                if (pions[inc][i].getPaint().getColor() == Color.BLACK || pions[inc][i].getPaint().getColor() == Color.BLUE )
+                if (pions[inc][i].getPaint().getColor() != Color.TRANSPARENT)
                     pions[inc][i].draw(convas);
             }
         }
@@ -153,11 +153,55 @@ public class CustomView extends View {
             pions[x][y].getPaint().setColor(Color.BLACK);
         else if (color == 2)
             pions[x][y].getPaint().setColor(Color.BLUE);
-        if (color == 1 || color == 2)
+        else if (color == 3)
+            pions[x][y].getPaint().setColor(Color.GREEN);
+        else if (color == 4)
+            pions[x][y].getPaint().setColor(Color.TRANSPARENT);
+        if (color > 0 && color < 5 )
         {
-           pions[x][y].setBounds(new Rect(((x) * width) + 10, ((y) * width) + 10,((x +1) * width) + 10 , ((y +1) * width) + 10));
+            pions[x][y].setBounds(new Rect(((x) * width) + 10, ((y) * width) + 10,((x +1) * width) + 10 , ((y +1) * width) + 10));
         }
         invalidate();
+    }
+
+
+    public void init_board()
+    {
+        int i;
+        int j;
+
+        for (i = 0; i < 8; i +=1)
+        {
+            for (j = 0; j < 8; j += 1)
+            {
+                if (pions[i][j].getPaint().getColor() == Color.GREEN)
+                    pions[i][j].getPaint().setColor(Color.TRANSPARENT);
+            }
+        }
+        invalidate();
+    }
+
+    public void reset_game()
+    {
+        int i;
+        int j;
+        for (i = 0; i < 8; i += 1)
+        {
+            for (j = 0; j < 8; j += 1)
+            {
+                draw_case(i, j, 4);
+            }
+        }
+
+
+        draw_case(3, 3, 1);
+        draw_case(4, 4, 1);
+        draw_case(3, 4, 2);
+        draw_case(4, 3, 2);
+        gl.init_game();
+        turn = 1;
+        gl.check_move();
+
     }
 
     public boolean onTouchEvent(MotionEvent event)
@@ -184,13 +228,14 @@ public class CustomView extends View {
             }
         }
 
-        if (inc != 8 && inc2 != 8 )
-        {
-            if (gl.check_allowed(inc, inc2)) {
+        if (inc != 8 && inc2 != 8 ) {
+            if (pions[inc][inc2].getPaint().getColor() == Color.GREEN) {
                 draw_case(inc, inc2, turn);
                 gl.set_all_case(inc, inc2);
+                init_board();
                 turn = gl.setnextTurn();
                 context.set_text(3, turn);
+                gl.check_move();
             }
         }
 
